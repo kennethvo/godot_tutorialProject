@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://drpp74br4lqqe"]
+
+[ext_resource type="Texture2D" uid="uid://bu4cuebrevhax" path="res://assets/sprites/slime_green.png" id="1_vohmc"]
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_yggmx"]
+[ext_resource type="PackedScene" uid="uid://d08yx3y2qrnt7" path="res://scenes/killzone.tscn" id="2_igpry"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_224h6"]
+atlas = ExtResource("1_vohmc")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82pob"]
+atlas = ExtResource("1_vohmc")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpbha"]
+atlas = ExtResource("1_vohmc")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07ip8"]
+atlas = ExtResource("1_vohmc")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihur0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_224h6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82pob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpbha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07ip8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_was4q"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0kj7j"]
+radius = 5.0
+
+[node name="slime" type="Node2D"]
+script = ExtResource("1_yggmx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_ihur0")
+autoplay = "default"
+frame_progress = 0.272604
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 2
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_was4q")
+
+[node name="killzone" parent="." instance=ExtResource("2_igpry")]
+position = Vector2(0, -5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_0kj7j")
+
+[node name="raycastRight" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+target_position = Vector2(7, 0)
+
+[node name="raycastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+target_position = Vector2(-7, 0)
